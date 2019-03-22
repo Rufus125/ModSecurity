@@ -1252,6 +1252,7 @@ EQUALS_MINUS                            (?i:=\-)
             throw p::syntax_error(*driver.loc.back(), "");
         }
         driver.ref.push_back(f);
+        driver.m_configurationFiles.insert(f);
         driver.loc.push_back(new yy::location());
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
     }
@@ -1278,6 +1279,7 @@ EQUALS_MINUS                            (?i:=\-)
             driver.error (*driver.loc.back(), "", s + std::string(": Not able to open file. ") + err);
             throw p::syntax_error(*driver.loc.back(), "");
         }
+        driver.m_configurationFiles.insert(f);
         driver.ref.push_back(f.c_str());
         driver.loc.push_back(new yy::location());
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));

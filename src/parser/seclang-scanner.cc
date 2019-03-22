@@ -5053,7 +5053,7 @@ static const flex_int16_t yy_rule_linenum[536] =
      1156, 1161, 1163, 1164, 1165, 1166, 1168, 1169, 1170, 1171,
      1173, 1174, 1175, 1176, 1178, 1180, 1181, 1183, 1184, 1185,
      1186, 1188, 1193, 1194, 1195, 1199, 1200, 1201, 1206, 1208,
-     1209, 1210, 1235, 1261, 1289
+     1209, 1210, 1235, 1262, 1291
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -8463,6 +8463,7 @@ YY_RULE_SETUP
             throw p::syntax_error(*driver.loc.back(), "");
         }
         driver.ref.push_back(f);
+        driver.m_configurationFiles.insert(f);
         driver.loc.push_back(new yy::location());
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
     }
@@ -8470,7 +8471,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 534:
 YY_RULE_SETUP
-#line 1261 "seclang-scanner.ll"
+#line 1262 "seclang-scanner.ll"
 {
     std::string err;
     const char *file = strchr(yytext, ' ') + 1;
@@ -8492,6 +8493,7 @@ YY_RULE_SETUP
             driver.error (*driver.loc.back(), "", s + std::string(": Not able to open file. ") + err);
             throw p::syntax_error(*driver.loc.back(), "");
         }
+        driver.m_configurationFiles.insert(f);
         driver.ref.push_back(f.c_str());
         driver.loc.push_back(new yy::location());
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
@@ -8502,7 +8504,7 @@ YY_RULE_SETUP
 case 535:
 /* rule 535 can match eol */
 YY_RULE_SETUP
-#line 1289 "seclang-scanner.ll"
+#line 1291 "seclang-scanner.ll"
 {
     HttpsClient c;
     std::string key;
@@ -8540,10 +8542,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 536:
 YY_RULE_SETUP
-#line 1325 "seclang-scanner.ll"
+#line 1327 "seclang-scanner.ll"
 ECHO;
 	YY_BREAK
-#line 8546 "seclang-scanner.cc"
+#line 8548 "seclang-scanner.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -9648,7 +9650,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 1325 "seclang-scanner.ll"
+#line 1327 "seclang-scanner.ll"
 
 
 namespace modsecurity {
