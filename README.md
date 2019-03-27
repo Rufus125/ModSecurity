@@ -222,7 +222,7 @@ Before start the debugging process, make sure of where your bug is. The problem
 could be on your connector or in libmodsecurity. In order to identify where the
 bug is, it is recommended that you develop a regression test that mimics the
 scenario where the bug is happening. If the bug is reproducible with the
-regression-test utility, then it will be far simpliar to debug and ensure that it never occurs again. On Linux it is
+regression-test utility, then it will be far simpler to debug and ensure that it never occurs again. On Linux it is
 recommended that anyone undertaking debugging utilize gdb and/or valgrind as needed.
 
 During the configuration/compilation time, you may want to disable the compiler
