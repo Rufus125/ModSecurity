@@ -26,7 +26,7 @@ If you are looking for ModSecurity for Apache (aka ModSecurity v2.x), it is stil
 
 ### What is the difference between this project and the old ModSecurity (v2.x.x)?
 
-* All Apache dependences have been removed
+* All Apache dependencies have been removed
 * Higher performance
 * New features
 * New architecture
