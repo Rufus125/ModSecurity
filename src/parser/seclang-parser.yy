@@ -316,7 +316,7 @@ using namespace modsecurity::operators;
 %initial-action
 {
   // Initialize the initial location.
-  @$.begin.filename = @$.end.filename = &driver.file;
+  @$.begin.filename = @$.end.filename = new std::string(driver.file);
 };
 %define parse.trace
 %define parse.error verbose
@@ -868,7 +868,7 @@ op:
       {
         $$ = std::move($1);
         std::string error;
-        if ($$->init(driver.ref.back(), &error) == false) {
+        if ($$->init(*@1.end.filename, &error) == false) {
             driver.error(@0, error);
             YYERROR;
         }
@@ -878,7 +878,7 @@ op:
         $$ = std::move($2);
         $$->m_negation = true;
         std::string error;
-        if ($$->init(driver.ref.back(), &error) == false) {
+        if ($$->init(*@1.end.filename, &error) == false) {
             driver.error(@0, error);
             YYERROR;
         }
@@ -887,7 +887,7 @@ op:
       {
         OPERATOR_CONTAINER($$, new operators::Rx(std::move($1)));
         std::string error;
-        if ($$->init(driver.ref.back(), &error) == false) {
+        if ($$->init(*@1.end.filename, &error) == false) {
             driver.error(@0, error);
             YYERROR;
         }
@@ -897,7 +897,7 @@ op:
         OPERATOR_CONTAINER($$, new operators::Rx(std::move($2)));
         $$->m_negation = true;
         std::string error;
-        if ($$->init(driver.ref.back(), &error) == false) {
+        if ($$->init(*@1.end.filename, &error) == false) {
             driver.error(@0, error);
             YYERROR;
         }
@@ -1079,7 +1079,7 @@ expression:
             /* op */ op,
             /* variables */ v,
             /* actions */ a,
-            /* file name */ driver.ref.back(),
+            /* file name */ *@1.end.filename,
             /* line number */ @1.end.line
             );
 
@@ -1099,7 +1099,7 @@ expression:
             /* op */ $3.release(),
             /* variables */ v,
             /* actions */ NULL,
-            /* file name */ driver.ref.back(),
+            /* file name */ *@1.end.filename,
             /* line number */ @1.end.line
             );
         if (driver.addSecRule(rule) == false) {
@@ -1117,7 +1117,7 @@ expression:
             /* op */ NULL,
             /* variables */ NULL,
             /* actions */ a,
-            /* file name */ driver.ref.back(),
+            /* file name */ *@1.end.filename,
             /* line number */ @1.end.line
             );
         driver.addSecAction(rule);
@@ -1132,7 +1132,7 @@ expression:
         RuleScript *r = new RuleScript(
             /* path to script */ $1,
             /* actions */ a,
-            /* file name */ driver.ref.back(),
+            /* file name */ *@1.end.filename,
             /* line number */ @1.end.line
             );
 
@@ -1531,7 +1531,7 @@ expression:
 #if defined(WITH_GEOIP) or defined(WITH_MAXMIND)
         std::string err;
         std::string file = modsecurity::utils::find_resource($1,
-            driver.ref.back(), &err);
+            *@1.end.filename, &err);
         if (file.empty()) {
             std::stringstream ss;
             ss << "Failed to load locate the GeoDB file from: " << $1 << " ";
@@ -1713,7 +1713,7 @@ expression:
             param.pop_back();
         }
 
-        file = modsecurity::utils::find_resource(f, driver.ref.back(), &err);
+        file = modsecurity::utils::find_resource(f, *@1.end.filename, &err);
         if (file.empty()) {
             std::stringstream ss;
             ss << "Failed to locate the unicode map file from: " << f << " ";

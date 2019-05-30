@@ -1,7 +1,14 @@
-[  {    "enabled":1,        "version_min":300000,    "title":"Testing Operator :: @verifysvnr (1/2)",
-    "client":{      "ip":"200.249.12.31",      "port":123
+[
+  {
+    "enabled":1,
+    "version_min":300000,
+    "title":"Testing Operator :: @verifysvnr (1/1)",
+    "client":{
+      "ip":"200.249.12.31",
+      "port":123
     },
-    "server":{      "ip":"200.249.12.31",
+    "server":{
+      "ip":"200.249.12.31",
       "port":80
     },
     "request":{
@@ -9,7 +16,7 @@
         "Host":"localhost",
         "User-Agent":"curl/7.38.0",
         "Accept":"*/*",
-        "Content-Length": "25",
+        "Content-Length": "32",
         "Content-Type": "application/x-www-form-urlencoded"
       },
       "uri":"/",
